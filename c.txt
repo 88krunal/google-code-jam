@@ -1,0 +1,61 @@
+#include<bits/stdc++.h>
+#define int long long int
+#define krunal ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL);
+using namespace std;
+
+signed main()
+{
+    krunal
+    int m;
+    cin>>m;
+    for(int j=1;j<=m;j++)
+    {
+        cout<<"Case #"<<j<<": ";
+        int n1;
+        cin>>n1;
+        map<int,int> mp;
+        map<pair<int,int>,queue<int> > mpp;
+        vector<pair<int,int> > vec;
+        int a[n1];
+        for(int i=0;i<n1;i++)
+        {
+            cin>>a[i];
+            int x1;cin>>x1;
+            mpp[{a[i],x1}].push(i);
+            vec.push_back({a[i],x1});
+        }
+        sort(vec.begin(),vec.end());
+        int s=0,e=0;
+        bool boo=true;
+        char answer[n1];
+        for(int i=0;i<n1;i++)
+        {
+            if(s<=vec[i].first)
+            {
+                s=vec[i].second;
+                answer[mpp[{vec[i].first,vec[i].second}].front()]='C';
+                mpp[{vec[i].first,vec[i].second}].pop();
+            }
+            else if(e<=vec[i].first)
+            {
+                e=vec[i].second;
+                answer[mpp[{vec[i].first,vec[i].second}].front()]='J';
+                mpp[{vec[i].first,vec[i].second}].pop();
+            }
+            else{
+                boo=false;
+                break;
+            }
+        }
+        if(boo)
+        {
+            for(int j=0;j<n1;j++)
+            {
+                cout<<answer[j];
+            }cout<<endl;
+        }
+        else cout<<"IMPOSSIBLE"<<endl;
+    }
+
+    return 0;
+}
